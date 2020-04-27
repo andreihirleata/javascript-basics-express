@@ -7,7 +7,7 @@ const {
   firstCharacters,
 } = require('./lib/strings');
 
-const { add, subtract, multiply } = require('./lib/numbers');
+const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 
 const app = express();
 
@@ -58,6 +58,30 @@ app.post('/numbers/multiply', (req, res) => {
     if (Number.isInteger(a) && Number.isInteger(b)) {
       res.status(200).json({ result: multiply(a, b) });
     } else res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  } else res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+});
+
+app.post('/numbers/divide', (req, res) => {
+  if ('a' in req.body && 'b' in req.body) {
+    const a = parseInt(req.body.a, 10);
+    const b = parseInt(req.body.b, 10);
+    if (Number.isInteger(a) && Number.isInteger(b)) {
+      if (b === 0) {
+        res.status(400).json({ error: 'Unable to divide by 0.' });
+      } else res.status(200).json({ result: divide(a, b) });
+    } else res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  } else res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+});
+
+app.post('/numbers/remainder', (req, res) => {
+  if ('a' in req.body && 'b' in req.body) {
+    const a = parseInt(req.body.a, 10);
+    const b = parseInt(req.body.b, 10);
+    if (Number.isInteger(a) && Number.isInteger(b)) {
+      if (b === 0) {
+        res.status(400).json({ error: 'Unable to divide by 0.' });
+      } else res.status(200).json({ result: remainder(a, b) });
+    } else res.status(400).json({ error: 'Parameters must be valid numbers.' });
   } else res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
 });
 module.exports = app;
