@@ -61,7 +61,7 @@ const startsWith = (char, string) => {
 
 const containsVowels = string => {
   let isTrue = false;
-  const vowels = ["a", "e", "i", "o", "u"];
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
   const lowerCaseString = string.toLowerCase();
   for (let i = 0; i < string.length; i += 1) {
     for (let j = 0; j < vowels.length; j += 1) {
@@ -91,5 +91,5 @@ module.exports = {
   isSquare,
   startsWith,
   containsVowels,
-  isLowerCase
+  isLowerCase,
 };

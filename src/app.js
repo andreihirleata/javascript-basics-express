@@ -8,11 +8,13 @@ const {
 } = require('./lib/strings');
 
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
+const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
 
 const app = express();
 
 app.use(express.json());
 
+// STRINGS
 app.get(`/strings/hello/:string`, (req, res) => {
   res.status(200).json({ result: sayHello(req.params.string) });
 });
@@ -34,6 +36,7 @@ app.get('/strings/first-characters/:string', (req, res) => {
   res.status(200).json({ result: firstCharacters(req.params.string, length) });
 });
 
+// NUMBERS
 app.get('/numbers/add/:num1/and/:num2', (req, res) => {
   const a = parseInt(req.params.num1, 10);
   const b = parseInt(req.params.num2, 10);
@@ -83,5 +86,29 @@ app.post('/numbers/remainder', (req, res) => {
       } else res.status(200).json({ result: remainder(a, b) });
     } else res.status(400).json({ error: 'Parameters must be valid numbers.' });
   } else res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+});
+
+// BOOLEANS
+
+app.post('/booleans/negate', (req, res) => {
+  const bool = req.body.value;
+  res.status(200).json({ result: negate(bool) });
+});
+
+app.post('/booleans/truthiness', (req, res) => {
+  const bool = req.body.value;
+  res.status(200).json({ result: truthiness(bool) });
+});
+
+app.get('/booleans/is-odd/:num', (req, res) => {
+  if (Number.isInteger(parseInt(req.params.num, 10))) {
+    res.status(200).json({ result: isOdd(req.params.num) });
+  } else res.status(400).json({ error: 'Parameter must be a number.' });
+});
+
+app.get('/booleans/:string/starts-with/:char', (req, res) => {
+  if (req.params.char.length === 1) {
+    res.status(200).json({ result: startsWith(req.params.char, req.params.string) });
+  } else res.status(400).json({ error: 'Parameter "character" must be a single character.' });
 });
 module.exports = app;

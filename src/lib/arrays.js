@@ -36,9 +36,9 @@ const uppercaseWordsInArray = strings => {
 const reverseWordsInArray = strings => {
   return strings.map(string =>
     string
-      .split("")
+      .split('')
       .reverse()
-      .join("")
+      .join(''),
   );
 };
 
@@ -65,13 +65,13 @@ const elementsStartingWithAVowel = strings => {
           string.charAt(0) === `E` ||
           string.charAt(0) === `I` ||
           string.charAt(0) === `O` ||
-          string.charAt(0) === `U`
+          string.charAt(0) === `U`,
       )
   );
 };
 
 const removeSpaces = string => {
-  return string.replace(/\s/g, "");
+  return string.replace(/\s/g, '');
 };
 
 const sumNumbers = numbers => {
@@ -83,16 +83,16 @@ const sortByLastLetter = strings => {
   return strings
     .map(string =>
       string
-        .split("")
+        .split('')
         .reverse()
-        .join("")
+        .join(''),
     )
     .sort()
     .map(string =>
       string
-        .split("")
+        .split('')
         .reverse()
-        .join("")
+        .join(''),
     );
 };
 
@@ -111,5 +111,5 @@ module.exports = {
   elementsStartingWithAVowel,
   removeSpaces,
   sumNumbers,
-  sortByLastLetter
+  sortByLastLetter,
 };
